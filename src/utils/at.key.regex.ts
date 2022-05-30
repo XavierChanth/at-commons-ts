@@ -1,8 +1,10 @@
-class Regexes {
-    static _charsInNamespace: RegExp = /([\w])+/;
-    static _charsInAtSign: RegExp = /[\w\-_]/;
-    static _charsInEntity: RegExp = /[\w\.\-_\'*"]/;
-    static _allowedEmoji: RegExp =
+import './ext.util';
+
+export class Regexes {
+    private static _charsInNamespace: RegExp = /([\w])+/;
+    private static _charsInAtSign: RegExp = /[\w\-_]/;
+    private static _charsInEntity: RegExp = /[\w\.\-_\'*"]/;
+    private static _allowedEmoji: RegExp =
         /((\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]))/;
 
     // Ideally these should be mutually exclusive, 
@@ -21,7 +23,7 @@ class Regexes {
         RegExp(`(?<visibility>(cached:public:){1})((@(?<sharedWith>(${this._charsInAtSign}|${this._allowedEmoji}){1,55}):))?(?<entity>(${this._charsInEntity}|${this._allowedEmoji})+)\\.(?<namespace>${this._charsInNamespace})@(?<owner>(${this._charsInAtSign}|${this._allowedEmoji}){1,55})`);
 }
 
-class RegexUtil {
+export class RegexUtil {
     /// Returns a first matching key type after matching the key against regexes for each of the key type
     static keyType(key: string): AtKeyType {
         // matches the key with public key regex.

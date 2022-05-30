@@ -3,18 +3,21 @@ interface Array<T> {
     isNotEmpty: boolean;
 }
 
-Array.prototype.isEmpty = length === 0;
-Array.prototype.isNotEmpty = length !== 0;
+Array.prototype.isEmpty = this.length === 0;
+Array.prototype.isNotEmpty = this.length !== 0;
 
 interface String {
     isEmpty: boolean;
     isNotEmpty: boolean;
 }
 
-String.prototype.isEmpty = length === 0;
-String.prototype.isNotEmpty = length !== 0;
+String.prototype.isEmpty = this.length === 0;
+String.prototype.isNotEmpty =  this.length !== 0;
 
 interface Map<K, V> {
+    /**
+     * Puts the value to the key if the key or value of a key is absent.
+     */
     putIfAbsent(key: K, ifAbsent: () => V): V;
 }
 

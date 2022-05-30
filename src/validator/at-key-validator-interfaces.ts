@@ -1,16 +1,21 @@
-/// Implement a validation on a key
+/**
+ * Implement a validation on a key
+ */ 
 export abstract class Validation {
     abstract doValidate(): ValidationResult;
 }
 
-/// Validates String representation of a [AtKey]
-/// For example String representation of a public key [PublicKey] will be public:phone.wavi@bob
+/**
+ * Validates String representation of a {@link AtKey}
+ * For example String representation of a public key {@link PublicKey} will be `public:phone.wavi@bob`
+ */
 export abstract class AtKeyValidator {
     abstract validate(key: string, context: ValidationContext): ValidationResult;
 }
 
-/// Represents context of a validation
-/// See [AtKeyValidator]
+/** Represents context of a validation
+ * @see {@link AtKeyValidator}
+ */
 export class ValidationContext {
     // Set it to the currentAtSign
     atSign?: string | null;
@@ -23,8 +28,8 @@ export class ValidationContext {
 }
 
 /**
- *  Represents outcome of a key validation
- * See @AtKeyValidator and @AtConcreteKeyValidator
+ * Represents outcome of a key validation
+ * See {@link AtKeyValidator} and {@link AtConcreteKeyValidator}
  */
 export class ValidationResult {
     isValid: boolean = false;

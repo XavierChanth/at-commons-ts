@@ -3,6 +3,7 @@ import { AtKeyValidators } from "../../validator/at-key-validator";
 import { ValidationContext } from "../../validator/at-key-validator-interfaces";
 import { AtKey } from "../at.key";
 import { Metadata } from "../metadata";
+import './../../utils/ext.util';
 
 /**
  *  Builder to build instances of AtKey's 
@@ -14,12 +15,13 @@ export interface KeyBuilder {
     build(): AtKey;
 
     /**
-     * Validates AtKey and throws Error for a given issue
+     * Validates AtKey and throws Error for a given context
      */
     validate(): void;
 
     /**
-     * Set simple key without any namespace.For example 'phone', 'email' etc...
+     * Set simple key without any namespace. 
+     * For example 'phone', 'email' etc...
      */
     key(key: string): void;
 
@@ -42,11 +44,15 @@ export interface KeyBuilder {
 
     /**
      * Set the current AtSign
-     * This is required.
+     * 
+     * `This is required.`
      */
     sharedBy(atSign: string): void;
 }
 
+/**
+ * Atkey builder
+ */
 export abstract class AtKeyBuilder implements KeyBuilder {
 
     _atKey: AtKey = new AtKey();
@@ -81,20 +87,20 @@ export abstract class AtKeyBuilder implements KeyBuilder {
         this._atKey.key = key;
     }
 
-    namespace(namespace: string): void {
+    namespace(namespace?: string): void {
         namespace = namespace?.trim();
         this._atKey.namespace = namespace;
     }
 
-    timeToLive(ttl: number): void {
-        this._metaData.ttl = ttl;
+    timeToLive(ttl?: number | null): void {
+        this._metaData.ttl = ttl!;
     }
 
-    timeToBirth(ttb: number): void {
-        this._metaData.ttb = ttb;
+    timeToBirth(ttb?: number): void {
+        this._metaData.ttb = ttb!;
     }
 
-    sharedBy(atSign: string): void {
+    sharedBy(atSign?: string): void {
         this._atKey.sharedBy = atSign;
     }
 }

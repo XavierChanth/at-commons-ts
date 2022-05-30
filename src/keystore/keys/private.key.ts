@@ -16,7 +16,9 @@ export class PrivateKey extends AtKey {
     }
 }
 
-/// Builder to build the hidden keys
+/**
+ * Builder to build the hidden keys
+ */
 export class PrivateKeyBuilder extends AtKeyBuilder {
     constructor() {
         super();

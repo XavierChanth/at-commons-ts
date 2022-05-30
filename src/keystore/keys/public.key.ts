@@ -1,3 +1,4 @@
+import { VerbUtil } from "../../utils/verb.utils/verb.util";
 import { AtKey } from "../at.key";
 import { Metadata } from "../metadata";
 import { CachedKeyBuilder } from "./cached.key";
@@ -13,13 +14,14 @@ export class PublicKey extends AtKey {
     }
 
     override toString(): string {
+        this.sharedBy = VerbUtil.formatAtSign(this.sharedBy);
         return `public:${this.key}.${this.namespace}${this.sharedBy}`;
     }
 }
 
-
-
-/// Builder to build the public keys
+/**
+ * Builder class to build the public keys
+ */
 export class PublicKeyBuilder extends CachedKeyBuilder {
     constructor() {
         super();

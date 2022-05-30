@@ -2,6 +2,9 @@ import { AtKeyError } from "../errors/at.error";
 import { PublicKeyBuilder, PrivateKeyBuilder, SelfKeyBuilder, SharedKeyBuilder } from "./keys/keys";
 import { Metadata } from "./metadata";
 
+/**
+ * Interface for AtKey
+ */
 interface IAtKey {
     key?: string;
     sharedWith?: string | undefined;
@@ -11,22 +14,61 @@ interface IAtKey {
     metadata?: Metadata | undefined;
 }
 
+/**
+ * AtKey is the base class for all key types. 
+ * It is used to store the key and it's metadata.
+ */
 export class AtKey implements IAtKey{
+    /**
+     * key is basically a name of the AtKey.
+     */
     key?: string;
+    /**
+     * The AtKey to whom shared with.
+     */
     sharedWith?: string | undefined;
+    /**
+     * The AtKey shared by whom. This refers the key created by whom.
+     */
     sharedBy?: string | undefined;
+    /**
+     * Namespace is where a set of AtKeys are grouped by.
+     */
     namespace?: string | undefined;
+    /**
+     * Determines whether is refered or not.
+     */
     isRef: boolean = false;
+    /**
+     * Metadata of the key.
+     */
     metadata?: Metadata | undefined;
 
+    /**
+     * Converts the AtKey json string to AtKey object
+     * @param {string} json
+     * @returns {AtKey} AtKey
+     */
     public toAtKey(json: string): AtKey {
         return JSON.parse(json);
     }
 
+    /**
+     * Converts to json string
+     * @returns {string} json 
+     */
     public toJson(): string {
         return JSON.stringify(this);
     }
 
+    /**
+     * Public keys are visible to everyone and 
+     * shown in an authenticated/unauthenticated scan
+     * @param key 
+     * @param [namespace]
+     * @param [sharedBy] 
+     * @returns {PublicKeyBuilder} PublicKeyBuilder
+     */
     public public(key: string,
         namespace?: string, sharedBy?: string): PublicKeyBuilder {
         const _builder = new PublicKeyBuilder();
@@ -36,6 +78,13 @@ export class AtKey implements IAtKey{
         return _builder;
     }
 
+    /**
+     * Private key's that are created by the 
+     * owner of the atSign and these keys are not shown in the scan.
+     * @param key 
+     * @param {string | null}  [namespace] 
+     * @returns {PrivateKeyBuilder} PrivateKeyBuilder 
+     */
     public private(key: string, namespace?: string): PrivateKeyBuilder {
         const _builder = new PrivateKeyBuilder();
         _builder.key(key);
@@ -43,6 +92,14 @@ export class AtKey implements IAtKey{
         return _builder;
     }
 
+    /**
+     * Self keys that are created by the owner of the atSign 
+     * and the keys can be accessed by the owner of the atSign only.
+     * @param key 
+     * @param [namespace] 
+     * @param [sharedBy] 
+     * @returns self 
+     */
     public self(key: string,
         namespace?: string, sharedBy?: string): SelfKeyBuilder {
         const _builder = new SelfKeyBuilder();
@@ -52,6 +109,15 @@ export class AtKey implements IAtKey{
         return _builder;
     }
 
+    /**
+     * Shared Keys are shared with other atSign.
+     * The owner can see the keys on authenticated scan. 
+     * The SharedWith atSign can lookup the value of the key.
+     * @param key 
+     * @param [namespace] 
+     * @param [sharedBy] 
+     * @returns shared 
+     */
     public shared(key: string,
         namespace?: string, sharedBy?: string): SharedKeyBuilder {
         const _builder = new SharedKeyBuilder();
@@ -61,6 +127,11 @@ export class AtKey implements IAtKey{
         return _builder;
     }
 
+    /**
+     * Convert the stringified key to a AtKey
+     * @param key 
+     * @returns string 
+     */
     fromString(key: string): AtKey {
         const atKey = new AtKey();
         const metadata = new Metadata();

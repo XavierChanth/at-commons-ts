@@ -1,7 +1,9 @@
 import { AtError } from "../../errors/at.error";
+import { VerbUtil } from "../../utils/verb.utils/verb.util";
 import { AtKey } from "../at.key";
 import { Metadata } from "../metadata";
 import { CachedKeyBuilder } from "./cached.key";
+import './../../utils/ext.util';
 
 export class SharedKey extends AtKey {
     constructor() {
@@ -10,11 +12,14 @@ export class SharedKey extends AtKey {
     }
 
     override toString(): string {
+        this.sharedBy = VerbUtil.formatAtSign(this.sharedBy);
         return `${this.sharedWith}:${this.key}.${this.namespace}${this.sharedBy}`;
     }
 }
 
-/// Builder to build the shared keys
+/**
+ * Builder to build the shared keys
+ */
 export class SharedKeyBuilder extends CachedKeyBuilder {
     constructor() {
         super();

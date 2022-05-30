@@ -1,18 +1,25 @@
 import { AtError } from '../errors/at.error';
+import { Regexes, RegexUtil } from '../utils/at.key.regex';
 import * as validators from './at-key-validator-interfaces';
+import './../utils/ext.util';
 
-/// Returns an instance of [AtKeyValidator]
+
+/**
+ * Returns an instance of `AtKeyValidator`
+ */
 export class AtKeyValidators {
     static get(): validators.AtKeyValidator {
         return new _AtKeyValidatorImpl();
     }
 }
 
-/// Class responsible for validating the atKey.
-/// Use [AtKeyValidators.get()] to get an instance of [_AtKeyValidatorImpl]
+/**
+ * Class responsible for validating the atKey.
+ * Use `AtKeyValidators.get()` to get an instance of `_AtKeyValidatorImpl`
+ */
 class _AtKeyValidatorImpl extends validators.AtKeyValidator {
-    _regex!: string | RegExp;
-    _type!: AtKeyType;
+    private _regex!: string | RegExp;
+    private _type!: AtKeyType;
 
     validate(key: string, context: validators.ValidationContext): validators.ValidationResult {
         // Init the state
@@ -45,7 +52,7 @@ class _AtKeyValidatorImpl extends validators.AtKeyValidator {
         return validators.ValidationResult.noFailure();
     }
 
-    _initParams(key: string, context: validators.ValidationContext): void {
+    private _initParams(key: string, context: validators.ValidationContext): void {
         // If the atSign is passed with @ remove it.
         context.atSign = context.atSign!.replace(RegExp('^@'), '');
         // If context.type is null, setType and regex.
@@ -58,12 +65,12 @@ class _AtKeyValidatorImpl extends validators.AtKeyValidator {
         this._setRegex(context.type!);
     }
 
-    _setTypeAndRegex(key: string): void {
+    private _setTypeAndRegex(key: string): void {
         this._type = RegexUtil.keyType(key);
         this._setRegex(this._type);
     }
 
-    _setRegex(type: AtKeyType): void {
+    private _setRegex(type: AtKeyType): void {
         switch (type) {
             case AtKeyType.publicKey:
                 this._regex = Regexes.publicKey;
@@ -90,7 +97,9 @@ class _AtKeyValidatorImpl extends validators.AtKeyValidator {
     }
 }
 
-/// Verifies if the key belongs to reserved key list.
+/**
+ * Verifies if the key belongs to reserved key list.
+ */
 export class ReservedEntityValidation extends validators.Validation {
     key!: string;
 
@@ -112,8 +121,10 @@ export class ReservedEntityValidation extends validators.Validation {
         return validators.ValidationResult.noFailure();
     }
 
-    /// Returns the [ReservedKey] enum for given key.
-    _reservedKey(key: string): ReservedKey {
+    /**
+     * Returns the `ReservedKey` enum for given key.
+     */
+    private _reservedKey(key: string): ReservedKey {
         if (key == this._getEntityFromConstant(AT_ENCRYPTION_SHARED_KEY)) {
             return ReservedKey.encryptionSharedKey;
         }
@@ -135,7 +146,7 @@ export class ReservedEntityValidation extends validators.Validation {
     /// Returns the entity part from the key constants.
     /// Eg: AT_ENCRYPTION_PUBLIC_KEY = 'public:publickey';
     ///     return 'publickey';
-    _getEntityFromConstant(key: string): string {
+    private _getEntityFromConstant(key: string): string {
         if (key.includes(':')) {
             return key.split(':')[1]!;
         }
@@ -145,7 +156,7 @@ export class ReservedEntityValidation extends validators.Validation {
 
 /// Validates key length of a @sign
 class KeyLengthValidation extends validators.Validation {
-    _maxKeyLength: number = 240;
+    #_maxKeyLength: number = 240;
     key!: string;
 
     constructor(key: string) {
@@ -154,9 +165,9 @@ class KeyLengthValidation extends validators.Validation {
     }
 
     doValidate(): validators.ValidationResult {
-        if (this.key.length > this._maxKeyLength) {
+        if (this.key.length > this.#_maxKeyLength) {
             return new validators.ValidationResult(
-                'Key length exceeds maximum permissible length of $_maxKeyLength characters');
+                `Key length exceeds maximum permissible length of ${this.#_maxKeyLength} characters`);
         }
         return validators.ValidationResult.noFailure();
     }
@@ -177,12 +188,12 @@ class KeyFormatValidation extends validators.Validation {
 
     doValidate(): validators.ValidationResult {
         if (this.type == AtKeyType.invalidKey) {
-            return new validators.ValidationResult('$key is not a valid key');
+            return new validators.ValidationResult(`${this.key} is not a valid key`);
         }
 
         const match: boolean = RegexUtil.matchAll(this.regex, this.key);
         if (!match) {
-            return new validators.ValidationResult('$key does not adhere to the regex $regex');
+            return new validators.ValidationResult(`${this.key} does not adhere to the regex ${this.regex}`);
         }
         return validators.ValidationResult.noFailure();
     }
@@ -220,7 +231,9 @@ class KeyOwnershipValidation extends validators.Validation {
     }
 }
 
-/// Validates if key is rightly shared
+/**
+ * Validates if key is rightly shared
+ */ 
 class KeyShareValidation extends validators.Validation {
     owner!: string;
     sharedWith!: string;
@@ -243,15 +256,15 @@ class KeyShareValidation extends validators.Validation {
             this.sharedWith.isNotEmpty &&
             this.owner != this.sharedWith) {
             return new validators.ValidationResult(
-                'For a self key owner $owner should be same as with whom it is shared with $sharedWith.');
+                `For a self key owner ${this.owner} should be same as with whom it is shared with ${this.sharedWith}.`);
         }
         if (this.type == AtKeyType.sharedKey && this.sharedWith.isEmpty) {
             return new validators.ValidationResult(
-                'Shared with cannot be null for a shared key $sharedWith');
+                `Shared with cannot be null for a shared key ${this.sharedWith}`);
         }
         if (this.type == AtKeyType.sharedKey && this.owner == this.sharedWith) {
             return new validators.ValidationResult(
-                'For a shared key owner $owner should not be same as with whom it is shared with $sharedWith.');
+                `For a shared key owner ${this.owner} should not be same as with whom it is shared with ${this.sharedWith}.`);
         }
         return validators.ValidationResult.noFailure();
     }
