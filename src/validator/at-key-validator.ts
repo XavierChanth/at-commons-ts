@@ -1,6 +1,6 @@
-import { AtError } from '../errors/at.error';
-import { Regexes, RegexUtil } from '../utils/at.key.regex';
-import * as validators from './at-key-validator-interfaces';
+import { AtError } from '../errors';
+import * as validators from '.';
+import { Regexes, RegexUtil, AtKeyType, RegexGroup, ReservedKey, AT_ENCRYPTION_SHARED_KEY, AT_ENCRYPTION_PUBLIC_KEY, AT_ENCRYPTION_PRIVATE_KEY, AT_PKAM_PUBLIC_KEY, AT_SIGNING_PRIVATE_KEY } from '../utils';
 import './../utils/ext.util';
 
 
@@ -233,7 +233,7 @@ class KeyOwnershipValidation extends validators.Validation {
 
 /**
  * Validates if key is rightly shared
- */ 
+ */
 class KeyShareValidation extends validators.Validation {
     owner!: string;
     sharedWith!: string;

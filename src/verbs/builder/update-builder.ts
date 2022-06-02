@@ -1,9 +1,6 @@
-import { Metadata } from "../../keystore/metadata";
-import { UpdateParams } from "../../utils/update.params";
-import { VerbSyntax } from "../../utils/verb.utils/verb.syntax";
-import { VerbUtil } from "../../utils/verb.utils/verb.util";
-import { VerbBuilder } from "./verb.builder";
-import './../../utils/constants';
+import { Metadata } from "../../keystore";
+import { AT_KEY, AT_SIGN, AT_TTB, AT_TTL, AT_TTR, AT_VALUE, CCD, FOR_AT_SIGN, IS_BINARY, IS_ENCRYPTED, PUBLIC_DATA_SIGNATURE, SHARED_KEY_ENCRYPTED, SHARED_WITH_PUBLIC_KEY_CHECK_SUM, UpdateParams, UPDATE_META, VerbSyntax, VerbUtil } from "../../utils";
+import { VerbBuilder } from ".";
 
 /**
  *  Update builder generates a command to update `value` for a key `atKey` in the secondary server of `sharedBy`.
@@ -242,10 +239,10 @@ export class UpdateVerbBuilder implements VerbBuilder {
         return builder;
     }
 
-    public buildCommandForMeta(): string { 
+    public buildCommandForMeta(): string {
         var command = 'update:meta:';
         if (this.isPublic) {
-            command += 'public:';            
+            command += 'public:';
         } else if (this.sharedWith !== null) {
             command += `${VerbUtil.formatAtSign(this.sharedWith)}:`;
         }

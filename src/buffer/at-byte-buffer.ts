@@ -1,5 +1,5 @@
-import { AAtBuffer } from "./at.buffer";
-import { BufferOverFlowError } from "../errors/at.error";
+import { AAtBuffer } from ".";
+import { BufferOverFlowError } from "../errors";
 import { TextEncoder } from "text-encoding";
 
 export class ByteBuffer extends AAtBuffer<Uint8Array> {

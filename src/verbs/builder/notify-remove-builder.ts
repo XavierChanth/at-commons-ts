@@ -1,10 +1,10 @@
-import { VerbBuilder } from "./verb.builder";
-import './../../utils/ext.util';
+import { VerbBuilder } from ".";
+import '../../utils/ext.util';
 
 export class NotifyRemoveVerbBuilder implements VerbBuilder {
-  id!: string;
+    id!: string;
 
-  buildCommand(): string {
+    buildCommand(): string {
         return `notify:remove:${this.id}\n`;
     }
 

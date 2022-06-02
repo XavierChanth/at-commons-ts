@@ -1,7 +1,7 @@
 /**
  * Enum that specifies the Atkey type
  */
-enum AtKeyType {
+export enum AtKeyType {
     selfKey = 'selfKey',
     sharedKey = 'sharedKey',
     publicKey = 'publicKey',
@@ -14,7 +14,7 @@ enum AtKeyType {
 /**
  * Enum that specifies Reserved key
  */
-enum ReservedKey {
+export enum ReservedKey {
     encryptionSharedKey = 'encryptionSharedKey',
     encryptionPublicKey = 'encryptionPublicKey',
     encryptionPrivateKey = 'encryptionPrivateKey',
@@ -27,7 +27,7 @@ enum ReservedKey {
 /**
  * Regex group enum
  */
-enum RegexGroup {
+export enum RegexGroup {
     visibility = 'visibility',
     sharedWith = 'sharedWith',
     entity = 'entity',
@@ -38,7 +38,7 @@ enum RegexGroup {
 /**
  * Enum that specifies the Operation
  */
-enum OperationEnum {
+export enum OperationEnum {
     update = 'update',
     delete = 'delete',
     append = 'append',
@@ -48,7 +48,7 @@ enum OperationEnum {
 /**
  * Enum that specifies the Priority
  */
-enum PriorityEnum {
+export enum PriorityEnum {
     low = 'low',
     medium = 'medium',
     high = 'high'
@@ -57,7 +57,7 @@ enum PriorityEnum {
 /**
  * Enum that specifies the Strategy
  */
-enum StrategyEnum {
+export enum StrategyEnum {
     all = 'all',
     latest = 'all'
 }
@@ -65,7 +65,7 @@ enum StrategyEnum {
 /**
  * Enum that specifies the Message type
  */
-enum MessageTypeEnum {
+export enum MessageTypeEnum {
     key = 'key',
     text = 'text'
 }
@@ -73,7 +73,7 @@ enum MessageTypeEnum {
 /**
  * Shared key status
  */
-enum SharedKeyStatus {
+export enum SharedKeyStatus {
     LOCAL_UPDATED = 'LOCAL_UPDATED',
     REMOTE_UPDATED = 'REMOTE_UPDATED',
     SHARED_WITH_NOTIFIED = 'SHARED_WITH_NOTIFIED',

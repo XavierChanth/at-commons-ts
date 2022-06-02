@@ -1,4 +1,4 @@
-import { Metadata } from "./metadata";
+import { Metadata } from ".";
 
 /**
  * AtValue is the value of the AtKey.

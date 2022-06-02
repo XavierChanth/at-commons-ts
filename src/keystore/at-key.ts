@@ -1,6 +1,7 @@
-import { AtKeyError } from "../errors/at.error";
-import { PublicKeyBuilder, PrivateKeyBuilder, SelfKeyBuilder, SharedKeyBuilder } from "./keys";
-import { Metadata } from "./metadata";
+import { AtKeyError } from "../errors";
+// import { PublicKeyBuilder, PrivateKeyBuilder, SelfKeyBuilder, SharedKeyBuilder } from "./builders";
+import { Metadata } from ".";
+import { AT_ENCRYPTION_PRIVATE_KEY, AT_PKAM_PRIVATE_KEY, AT_PKAM_PUBLIC_KEY, CACHED } from "../utils";
 
 /**
  * Interface for AtKey
@@ -61,71 +62,71 @@ export class AtKey implements IAtKey {
         return JSON.stringify(this);
     }
 
-    /**
-     * Public keys are visible to everyone and 
-     * shown in an authenticated/unauthenticated scan
-     * @param key 
-     * @param [namespace]
-     * @param [sharedBy] 
-     * @returns {PublicKeyBuilder} PublicKeyBuilder
-     */
-    public public(key: string,
-        namespace?: string, sharedBy?: string): PublicKeyBuilder {
-        const _builder = new PublicKeyBuilder();
-        _builder.key(key!);
-        _builder.sharedBy(sharedBy!);
-        _builder.namespace(namespace!);
-        return _builder;
-    }
+    // /**
+    //  * Public keys are visible to everyone and 
+    //  * shown in an authenticated/unauthenticated scan
+    //  * @param key 
+    //  * @param [namespace]
+    //  * @param [sharedBy] 
+    //  * @returns {PublicKeyBuilder} PublicKeyBuilder
+    //  */
+    // public public(key: string,
+    //     namespace?: string, sharedBy?: string): PublicKeyBuilder {
+    //     const _builder = new PublicKeyBuilder();
+    //     _builder.key(key!);
+    //     _builder.sharedBy(sharedBy!);
+    //     _builder.namespace(namespace!);
+    //     return _builder;
+    // }
 
-    /**
-     * Private key's that are created by the 
-     * owner of the atSign and these keys are not shown in the scan.
-     * @param key 
-     * @param {string | null}  [namespace] 
-     * @returns {PrivateKeyBuilder} PrivateKeyBuilder 
-     */
-    public private(key: string, namespace?: string): PrivateKeyBuilder {
-        const _builder = new PrivateKeyBuilder();
-        _builder.key(key);
-        _builder.namespace(namespace!);
-        return _builder;
-    }
+    // /**
+    //  * Private key's that are created by the 
+    //  * owner of the atSign and these keys are not shown in the scan.
+    //  * @param key 
+    //  * @param {string | null}  [namespace] 
+    //  * @returns {PrivateKeyBuilder} PrivateKeyBuilder 
+    //  */
+    // public private(key: string, namespace?: string): PrivateKeyBuilder {
+    //     const _builder = new PrivateKeyBuilder();
+    //     _builder.key(key);
+    //     _builder.namespace(namespace!);
+    //     return _builder;
+    // }
 
-    /**
-     * Self keys that are created by the owner of the atSign 
-     * and the keys can be accessed by the owner of the atSign only.
-     * @param key 
-     * @param [namespace] 
-     * @param [sharedBy] 
-     * @returns self 
-     */
-    public self(key: string,
-        namespace?: string, sharedBy?: string): SelfKeyBuilder {
-        const _builder = new SelfKeyBuilder();
-        _builder.key(key!);
-        _builder.sharedBy(sharedBy!);
-        _builder.namespace(namespace!);
-        return _builder;
-    }
+    // /**
+    //  * Self keys that are created by the owner of the atSign 
+    //  * and the keys can be accessed by the owner of the atSign only.
+    //  * @param key 
+    //  * @param [namespace] 
+    //  * @param [sharedBy] 
+    //  * @returns self 
+    //  */
+    // public self(key: string,
+    //     namespace?: string, sharedBy?: string): SelfKeyBuilder {
+    //     const _builder = new SelfKeyBuilder();
+    //     _builder.key(key!);
+    //     _builder.sharedBy(sharedBy!);
+    //     _builder.namespace(namespace!);
+    //     return _builder;
+    // }
 
-    /**
-     * Shared Keys are shared with other atSign.
-     * The owner can see the keys on authenticated scan. 
-     * The SharedWith atSign can lookup the value of the key.
-     * @param key 
-     * @param [namespace] 
-     * @param [sharedBy] 
-     * @returns shared 
-     */
-    public shared(key: string,
-        namespace?: string, sharedBy?: string): SharedKeyBuilder {
-        const _builder = new SharedKeyBuilder();
-        _builder.key(key!);
-        _builder.sharedBy(sharedBy!);
-        _builder.namespace(namespace!);
-        return _builder;
-    }
+    // /**
+    //  * Shared Keys are shared with other atSign.
+    //  * The owner can see the keys on authenticated scan. 
+    //  * The SharedWith atSign can lookup the value of the key.
+    //  * @param key 
+    //  * @param [namespace] 
+    //  * @param [sharedBy] 
+    //  * @returns shared 
+    //  */
+    // public shared(key: string,
+    //     namespace?: string, sharedBy?: string): SharedKeyBuilder {
+    //     const _builder = new SharedKeyBuilder();
+    //     _builder.key(key!);
+    //     _builder.sharedBy(sharedBy!);
+    //     _builder.namespace(namespace!);
+    //     return _builder;
+    // }
 
     /**
      * Convert the stringified key to a AtKey

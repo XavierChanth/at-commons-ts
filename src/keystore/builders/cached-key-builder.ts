@@ -1,4 +1,4 @@
-import { AtKeyBuilder } from "../builder/key.builder";
+import { AtKeyBuilder } from ".";
 
 /**
  * Abstract class for AtKey builder to build cached keys

@@ -1,3 +1,5 @@
+import { AtKeyType } from "../utils";
+
 /**
  * Implement a validation on a key
  */ 

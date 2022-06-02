@@ -1,5 +1,5 @@
-import { VerbBuilder } from "./verb.builder";
-import './../../utils/ext.util';
+import { VerbBuilder } from ".";
+import '../../utils/ext.util';
 
 export class SyncVerbBuilder implements VerbBuilder {
 

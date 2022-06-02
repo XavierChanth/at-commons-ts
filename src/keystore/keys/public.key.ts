@@ -1,7 +1,5 @@
-import { VerbUtil } from "../../utils/verb.utils/verb.util";
-import { AtKey } from "..";
-import { Metadata } from "../metadata";
-import { CachedKeyBuilder } from "./cached-key";
+import { VerbUtil } from "../../utils";
+import { AtKey, Metadata } from "..";
 
 /**
  * Represents a public key.
@@ -19,20 +17,4 @@ export class PublicKey extends AtKey {
     }
 }
 
-/**
- * Builder class to build the public keys
- */
-export class PublicKeyBuilder extends CachedKeyBuilder {
-    constructor() {
-        super();
-        this._atKey = new PublicKey();
-        this._metaData.isPublic = true;
-        this._metaData.isHidden = false;
-    }
 
-    cache(ttr: number, ccd: boolean): void {
-        this._metaData.ttr = ttr;
-        this._metaData.ccd = ccd;
-        this._metaData.isCached = (ttr != 0);
-    }
-}

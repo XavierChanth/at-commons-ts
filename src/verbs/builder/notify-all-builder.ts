@@ -1,7 +1,7 @@
-import { VerbUtil } from '../../utils/verb.utils/verb.util';
-import { VerbBuilder } from './verb.builder';
-import './../../utils/at.enums';
-import './../../utils/ext.util';
+import { VerbUtil } from '../../utils';
+import { VerbBuilder } from '.';
+import '../../utils/ext.util';
+import { OperationEnum } from '../../utils';
 
 export class NotifyAllVerbBuilder implements VerbBuilder {
     /**

@@ -1,8 +1,6 @@
 import * as Uuid from 'uuid';
-import { VerbUtil } from '../../utils/verb.utils/verb.util';
-import './../../utils/constants';
-import { VerbBuilder } from './verb.builder';
-import './../../utils/at.enums';
+import { VerbBuilder } from '.';
+import { OperationEnum, PriorityEnum, StrategyEnum, MessageTypeEnum, SYSTEM, SHARED_KEY_ENCRYPTED, SHARED_WITH_PUBLIC_KEY_CHECK_SUM, VerbUtil } from '../../utils/';
 
 export class NotifyVerbBuilder implements VerbBuilder {
     /**

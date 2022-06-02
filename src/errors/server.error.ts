@@ -1,4 +1,4 @@
-import { AtError } from "./at.error";
+import { AtError } from ".";
 
 /**
  * Exception occurs when there is an issue while starting the server.

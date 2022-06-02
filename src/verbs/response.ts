@@ -1,4 +1,4 @@
-import { AtError } from "../errors/at.error";
+import { AtError } from "../errors";
 
 export interface IResponse {
     data?: string;

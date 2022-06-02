@@ -1,4 +1,4 @@
-import { errorCodes } from "./at.error.codes";
+import { errorCodes } from ".";
 
 /**
  * AtError is the base class for all errors.

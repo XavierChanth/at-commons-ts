@@ -1,8 +1,5 @@
-import { AtError } from "../../errors/at.error";
-import { VerbUtil } from "../../utils/verb.utils/verb.util";
-import { AtKey } from "..";
-import { Metadata } from "../metadata";
-import { CachedKeyBuilder } from "./cached-key";
+import { VerbUtil } from "../../utils";
+import { AtKey, Metadata } from "..";
 import './../../utils/ext.util';
 
 export class SharedKey extends AtKey {
@@ -14,37 +11,5 @@ export class SharedKey extends AtKey {
     toString(): string {
         this.sharedBy = VerbUtil.formatAtSign(this.sharedBy!)!;
         return `${this.sharedWith}:${this.key}.${this.namespace}${this.sharedBy}`;
-    }
-}
-
-/**
- * Builder to build the shared keys
- */
-export class SharedKeyBuilder extends CachedKeyBuilder {
-    constructor() {
-        super();
-        this._atKey = new SharedKey();
-        this._metaData.isPublic = false;
-        this._metaData.isHidden = false;
-    }
-
-    cache(ttr: number, ccd: boolean): void {
-        this._metaData.ttr = ttr;
-        this._metaData.ccd = ccd;
-        this._metaData.isCached = (ttr != 0);
-    }
-
-    /// Accepts a string which represents an atSign for the key is created.
-    sharedWith(sharedWith: string): void {
-        sharedWith = sharedWith.trim();
-        this._atKey.sharedWith = sharedWith;
-    }
-
-    validate(): void {
-        //Call AbstractKeyBuilder validate method to perform the common validations.
-        super.validate();
-        if (this._atKey.sharedWith == null || this._atKey.sharedWith!.isEmpty()) {
-            throw new AtError('sharedWith cannot be empty', 'SharedKeyBuilder');
-        }
     }
 }

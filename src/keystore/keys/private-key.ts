@@ -1,5 +1,4 @@
-import { AtKey, AtKeyBuilder } from "../builder/key.builder";
-import { Metadata } from "../metadata";
+import { AtKey, Metadata } from "..";
 
 /**
  * Represents a Private key.
@@ -15,14 +14,3 @@ export class PrivateKey extends AtKey {
     }
 }
 
-/**
- * Builder to build the hidden keys
- */
-export class PrivateKeyBuilder extends AtKeyBuilder {
-    constructor() {
-        super();
-        this._atKey = new PrivateKey();
-        this._metaData.isHidden = true;
-        this._metaData.isPublic = false;
-    }
-}

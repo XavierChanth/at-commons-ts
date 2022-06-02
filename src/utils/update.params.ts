@@ -1,4 +1,4 @@
-import { Metadata } from "../keystore/metadata";
+import { Metadata } from "../keystore";
 
 /**
  * Update parameters interface.

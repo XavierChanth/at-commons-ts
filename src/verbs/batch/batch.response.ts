@@ -1,4 +1,4 @@
-import { IResponse } from "../response";
+import { IResponse } from "..";
 
 interface IBatchResponse {
     id?: number;

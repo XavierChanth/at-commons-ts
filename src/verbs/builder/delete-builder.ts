@@ -1,7 +1,6 @@
-import { VerbBuilder } from "./verb.builder";
-import './../../utils/ext.util';
-import { VerbUtil } from "../../utils/verb.utils/verb.util";
-import { VerbSyntax } from "../../utils/verb.utils/verb.syntax";
+import '../../utils/ext.util';
+import { AT_KEY, VerbSyntax, VerbUtil } from "../../utils";
+import { VerbBuilder } from '.';
 
 
 /** Delete verb builder generates a command to delete a [atKey] from the secondary server.

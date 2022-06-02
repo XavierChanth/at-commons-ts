@@ -1,5 +1,5 @@
-import { BufferOverFlowError } from "../errors/errors";
-import { AAtBuffer } from "./at.buffer";
+import { BufferOverFlowError } from "../errors";
+import { AAtBuffer } from ".";
 
 export class StringBuffer extends AAtBuffer<string>{
 

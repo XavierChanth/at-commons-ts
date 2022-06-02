@@ -1,14 +1,4 @@
-
-/// Monitor builder generates a command that streams incoming notifications from the secondary server to
-/// the current client.
-/// ```
-/// // Receives all of the notifications
-///    var builder = MonitorVerbBuilder();
-///
-/// // Receives notifications for those keys that matches a specific regex
-///    var builder = MonitorVerbBuilder()..regex = '.alice';
-
-import { VerbBuilder } from "./verb.builder";
+import { VerbBuilder } from ".";
 
 /**
  *  Monitor builder generates a command that streams incoming notifications from the secondary server to
@@ -23,11 +13,11 @@ import { VerbBuilder } from "./verb.builder";
  * ```
  */
 export class MonitorVerbBuilder implements VerbBuilder {
-  auth: boolean = true;
-  regex?: RegExp | string | null;
-  lastNotificationTime?: number | null;
+    auth: boolean = true;
+    regex?: RegExp | string | null;
+    lastNotificationTime?: number | null;
 
-  buildCommand(): string {
+    buildCommand(): string {
         var monitorCommand = 'monitor';
         if (this.lastNotificationTime != null) {
             monitorCommand += `:${this.lastNotificationTime.toString()}`;
@@ -39,7 +29,7 @@ export class MonitorVerbBuilder implements VerbBuilder {
         return monitorCommand;
     }
 
-  checkParams(): boolean {
+    checkParams(): boolean {
         return true;
     }
 }

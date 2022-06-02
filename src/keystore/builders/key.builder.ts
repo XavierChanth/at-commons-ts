@@ -1,10 +1,7 @@
-import { AtKeyError } from "../../errors/at.error";
-import { AtKeyValidators } from "../../validator/at-key-validator";
-import { ValidationContext } from "../../validator/at-key-validator-interfaces";
-import { AtKey } from "..";
-import { Metadata } from "../metadata";
-import './../../utils/ext.util';
-export { AtKey };
+import { AtKeyError } from "../../errors";
+import { AtKeyValidators, ValidationContext } from "../../validator";
+import { AtKey, Metadata } from "..";
+import '../../utils/ext.util';
 
 /**
  *  Builder to build instances of AtKey's 

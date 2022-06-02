@@ -1,7 +1,5 @@
-import { VerbUtil } from "../../utils/verb.utils/verb.util";
-import { AtKey } from "../at-key";
-import { AtKeyBuilder } from "../builder/key.builder";
-import { Metadata } from "../metadata";
+import { VerbUtil } from "../../utils";
+import { AtKey, Metadata } from "..";
 import './../../utils/ext.util';
 
 export class SelfKey extends AtKey {
@@ -21,18 +19,5 @@ export class SelfKey extends AtKey {
         }
         this.sharedBy = VerbUtil.formatAtSign(this.sharedBy!)!;
         return `${this.key}.${this.namespace}${this.sharedBy}`;
-    }
-}
-
-
-/**
- * Builder class to build the self keys
- */
-export class SelfKeyBuilder extends AtKeyBuilder {
-    constructor() {
-        super()
-        this._atKey = new SelfKey();
-        this._metaData.isPublic = false;
-        this._metaData.isHidden = false;
     }
 }

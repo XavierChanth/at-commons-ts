@@ -1,4 +1,4 @@
-import { VerbBuilder } from "./verb.builder";
+import { VerbBuilder } from ".";
 
 /** 
  * Stats builder generates a command that returns various of the server statistics of current atSign.

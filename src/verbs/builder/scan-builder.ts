@@ -1,5 +1,5 @@
-import { VerbUtil } from "../../utils/verb.utils/verb.util";
-import { VerbBuilder } from "./verb.builder";
+import { VerbUtil } from "../../utils";
+import { VerbBuilder } from ".";
 
 /**
  * Scan verb builder generates a command to scan keys of current atSign(with ot without auth).

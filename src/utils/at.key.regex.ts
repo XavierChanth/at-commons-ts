@@ -1,4 +1,4 @@
-import './ext.util';
+import { AtKeyType, RegexGroup } from '.';
 
 export class Regexes {
     private static _charsInNamespace: RegExp = /([\w])+/;

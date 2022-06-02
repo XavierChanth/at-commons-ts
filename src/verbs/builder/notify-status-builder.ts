@@ -1,4 +1,4 @@
-import { VerbBuilder } from "./verb.builder";
+import { VerbBuilder } from ".";
 
 export class NotifyStatusVerbBuilder implements VerbBuilder {
     /**

@@ -1,6 +1,6 @@
-import { VerbUtil } from "../../utils/verb.utils/verb.util";
-import { VerbBuilder } from "./verb.builder";
-import './../../utils/ext.util';
+import { VerbUtil } from "../../utils";
+import { VerbBuilder } from ".";
+import '../../utils/ext.util';
 
 /** 
  * Lookup verb builder generates a command to lookup `atKey` on either the client user's secondary server (without authentication)
