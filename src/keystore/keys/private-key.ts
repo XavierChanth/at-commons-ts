@@ -1,5 +1,4 @@
-import { AtKey } from "../at.key";
-import { AtKeyBuilder } from "../builder/key.builder";
+import { AtKey, AtKeyBuilder } from "../builder/key.builder";
 import { Metadata } from "../metadata";
 
 /**
@@ -11,7 +10,7 @@ export class PrivateKey extends AtKey {
         this.metadata = new Metadata();
     }
 
-    override toString(): string {
+    toString(): string {
         return `privatekey:${this.key}`;
     }
 }

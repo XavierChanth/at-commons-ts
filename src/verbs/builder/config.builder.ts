@@ -1,5 +1,6 @@
 import { VerbUtil } from "../../utils/verb.utils/verb.util";
 import { VerbBuilder } from "./verb.builder";
+import './../../utils/ext.util';
 
 /** 
  * This builder generates a command to configure block list entries in the secondary server.
@@ -26,7 +27,7 @@ export class ConfigVerbBuilder implements VerbBuilder {
         } else {
             command += `${this.operation}:`;
         }
-        if (this.atSigns !== null && this.atSigns && this.atSigns.isNotEmpty) {
+        if (this.atSigns !== null && this.atSigns && this.atSigns.isNotEmpty()) {
             for (var atSign of this.atSigns!) {
                 command += `${VerbUtil.formatAtSign(atSign)}`;
             }

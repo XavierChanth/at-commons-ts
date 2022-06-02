@@ -1,9 +1,10 @@
 import { AtKeyError } from "../../errors/at.error";
 import { AtKeyValidators } from "../../validator/at-key-validator";
 import { ValidationContext } from "../../validator/at-key-validator-interfaces";
-import { AtKey } from "../at.key";
+import { AtKey } from "..";
 import { Metadata } from "../metadata";
 import './../../utils/ext.util';
+export { AtKey };
 
 /**
  *  Builder to build instances of AtKey's 
@@ -65,7 +66,7 @@ export abstract class AtKeyBuilder implements KeyBuilder {
     }
 
     validate(): void {
-        if (this._atKey.key!.isEmpty) {
+        if (this._atKey.key!.isEmpty()) {
             throw new AtKeyError('Key cannot be empty');
         }
         if (this._atKey.key == null) {
@@ -89,7 +90,7 @@ export abstract class AtKeyBuilder implements KeyBuilder {
 
     namespace(namespace?: string): void {
         namespace = namespace?.trim();
-        this._atKey.namespace = namespace;
+        this._atKey.namespace = namespace ?? null;
     }
 
     timeToLive(ttl?: number | null): void {
@@ -101,6 +102,6 @@ export abstract class AtKeyBuilder implements KeyBuilder {
     }
 
     sharedBy(atSign?: string): void {
-        this._atKey.sharedBy = atSign;
+        this._atKey.sharedBy = atSign ?? null;
     }
 }

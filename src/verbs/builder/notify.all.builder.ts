@@ -1,6 +1,7 @@
 import { VerbUtil } from '../../utils/verb.utils/verb.util';
 import { VerbBuilder } from './verb.builder';
 import './../../utils/at.enums';
+import './../../utils/ext.util';
 
 export class NotifyAllVerbBuilder implements VerbBuilder {
     /**
@@ -62,10 +63,10 @@ export class NotifyAllVerbBuilder implements VerbBuilder {
             command += `ttb:${this.ttb}:`;
         }
         if (this.ttr != null) {
-            this.ccd ??= false;
+            this.ccd = this.ccd ?? false;
             command += `ttr:${this.ttr}:ccd:${this.ccd}:`;
         }
-        if (this.sharedWithList != null && this.sharedWithList!.isNotEmpty) {
+        if (this.sharedWithList != null && this.sharedWithList!.isNotEmpty()) {
             var sharedWith = this.sharedWithList!.join(',');
             command += `${VerbUtil.formatAtSign(sharedWith)}:`;
         }

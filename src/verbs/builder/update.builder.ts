@@ -242,5 +242,43 @@ export class UpdateVerbBuilder implements VerbBuilder {
         return builder;
     }
 
+    public buildCommandForMeta(): string { 
+        var command = 'update:meta:';
+        if (this.isPublic) {
+            command += 'public:';            
+        } else if (this.sharedWith !== null) {
+            command += `${VerbUtil.formatAtSign(this.sharedWith)}:`;
+        }
+        command += this.atKey!;
+        if (this.sharedBy != null) {
+            command += `${VerbUtil.formatAtSign(this.sharedBy)}`;
+        }
+        if (this.ttl !== null && this.ttl) {
+            command += `:ttl:${this.ttl}:`;
+        }
+        if (this.ttb !== null && this.ttb) {
+            command += `:ttb:${this.ttb}:`;
+        }
+        if (this.ttr != null) {
+            command += `:ttr:${this.ttr}:`;
+        }
+        if (this.ccd != null) {
+            command += `:ccd:${this.ccd}:`;
+        }
+        if (this.isBinary != null) {
+            command += `:isBinary:${this.isBinary}:`;
+        }
+        if (this.isEncrypted != null) {
+            command += `:isEncrypted:${this.isEncrypted}:`;
+        }
+        if (this.sharedKeyEncrypted != null) {
+            command += `:${SHARED_KEY_ENCRYPTED}:${this.sharedKeyEncrypted}:`;
+        }
+        if (this.pubKeyChecksum != null) {
+            command += `:${SHARED_WITH_PUBLIC_KEY_CHECK_SUM}:${this.pubKeyChecksum}:`;
+        }
+        command += `\n`;
+        return command;
+    }
 
 }

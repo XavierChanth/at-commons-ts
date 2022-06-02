@@ -125,7 +125,7 @@ export class NotifyVerbBuilder implements VerbBuilder {
             command += `ttb:${this.ttb}:`;
         }
         if (this.ttr != null) {
-            this.ccd ??= false;
+            this.ccd = this.ccd ?? false;
             command += `ttr:${this.ttr}:ccd:${this.ccd}:`;
         }
 

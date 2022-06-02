@@ -1,5 +1,5 @@
 import { AtKeyError } from "../errors/at.error";
-import { PublicKeyBuilder, PrivateKeyBuilder, SelfKeyBuilder, SharedKeyBuilder } from "./keys/keys";
+import { PublicKeyBuilder, PrivateKeyBuilder, SelfKeyBuilder, SharedKeyBuilder } from "./keys";
 import { Metadata } from "./metadata";
 
 /**
@@ -7,18 +7,18 @@ import { Metadata } from "./metadata";
  */
 interface IAtKey {
     key?: string;
-    sharedWith?: string | undefined;
-    sharedBy?: string | undefined;
-    namespace?: string | undefined;
+    sharedWith?: string | null;
+    sharedBy?: string | null;
+    namespace?: string | null;
     isRef: boolean;
-    metadata?: Metadata | undefined;
+    metadata?: Metadata | null;
 }
 
 /**
  * AtKey is the base class for all key types. 
  * It is used to store the key and it's metadata.
  */
-export class AtKey implements IAtKey{
+export class AtKey implements IAtKey {
     /**
      * key is basically a name of the AtKey.
      */
@@ -26,15 +26,15 @@ export class AtKey implements IAtKey{
     /**
      * The AtKey to whom shared with.
      */
-    sharedWith?: string | undefined;
+    sharedWith?: string | null;
     /**
      * The AtKey shared by whom. This refers the key created by whom.
      */
-    sharedBy?: string | undefined;
+    sharedBy?: string | null;
     /**
      * Namespace is where a set of AtKeys are grouped by.
      */
-    namespace?: string | undefined;
+    namespace?: string | null;
     /**
      * Determines whether is refered or not.
      */
@@ -42,7 +42,7 @@ export class AtKey implements IAtKey{
     /**
      * Metadata of the key.
      */
-    metadata?: Metadata | undefined;
+    metadata?: Metadata | null;
 
     /**
      * Converts the AtKey json string to AtKey object
@@ -142,7 +142,7 @@ export class AtKey implements IAtKey{
             return atKey;
         } else if (key.startsWith(AT_ENCRYPTION_PRIVATE_KEY)) {
             atKey.key = key.split('@')[0]!;
-            atKey.sharedBy = key.split('@')[1] ?? undefined;
+            atKey.sharedBy = key.split('@')[1] ?? null;
             atKey.metadata = metadata;
             return atKey;
         }
@@ -154,7 +154,7 @@ export class AtKey implements IAtKey{
         // If key does not contain ':' Ex: phone@bob; then keyParts length is 1
         // where phone is key and @bob is sharedBy
         if (keyParts.length == 1) {
-            atKey.sharedBy = keyParts[0]?.split('@')[1];
+            atKey.sharedBy = keyParts[0]?.split('@')[1]!;
             atKey.key = keyParts[0]?.split('@')[0]!;
         } else {
             // Example key: public:phone@bob
@@ -164,9 +164,9 @@ export class AtKey implements IAtKey{
             // Example key: cached:@alice:phone@bob
             else if (keyParts[0] == CACHED) {
                 metadata.isCached = true;
-                atKey.sharedWith = keyParts[1];
+                atKey.sharedWith = keyParts[1]!;
             } else {
-                atKey.sharedWith = keyParts[0];
+                atKey.sharedWith = keyParts[0]!;
             }
             let keyArr: string[] = [];
             if (keyParts[0] == CACHED) {
@@ -175,7 +175,7 @@ export class AtKey implements IAtKey{
                 keyArr = keyParts[1]?.split('@')!;
             }
             if (keyArr.length == 2) {
-                atKey.sharedBy = keyArr[1];
+                atKey.sharedBy = keyArr[1]!;
                 atKey.key = keyArr[0]!;
             } else {
                 atKey.key = keyArr[0]!;

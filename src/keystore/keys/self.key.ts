@@ -1,7 +1,8 @@
 import { VerbUtil } from "../../utils/verb.utils/verb.util";
-import { AtKey } from "../at.key";
+import { AtKey } from "../at-key";
 import { AtKeyBuilder } from "../builder/key.builder";
 import { Metadata } from "../metadata";
+import './../../utils/ext.util';
 
 export class SelfKey extends AtKey {
     constructor() {
@@ -10,15 +11,15 @@ export class SelfKey extends AtKey {
         this.metadata!.isPublic = false;
     }
 
-    override toString(): string {
+    toString(): string {
         // If sharedWith is populated and sharedWith is equal to sharedBy, then
         // keys is a self key.
         // @alice:phone@alice or phone@alice
-        if (this.sharedWith != null && this.sharedWith!.isNotEmpty) {
-            this.sharedBy = VerbUtil.formatAtSign(this.sharedBy);
+        if (this.sharedWith != null && this.sharedWith!.isNotEmpty()) {
+            this.sharedBy = VerbUtil.formatAtSign(this.sharedBy!)!;
             return `${this.sharedWith}:${this.key}.${this.namespace}${this.sharedBy}`;
         }
-        this.sharedBy = VerbUtil.formatAtSign(this.sharedBy);
+        this.sharedBy = VerbUtil.formatAtSign(this.sharedBy!)!;
         return `${this.key}.${this.namespace}${this.sharedBy}`;
     }
 }

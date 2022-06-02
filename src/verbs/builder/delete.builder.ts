@@ -46,10 +46,10 @@ export class DeleteVerbBuilder implements VerbBuilder {
             command += 'public:';
         }
 
-        if (this.sharedWith != null && this.sharedWith!.isNotEmpty) {
+        if (this.sharedWith != null && this.sharedWith!.isNotEmpty()) {
             command += `${VerbUtil.formatAtSign(this.sharedWith)}:`;
         }
-        if (this.sharedBy != null && this.sharedBy!.isNotEmpty) {
+        if (this.sharedBy != null && this.sharedBy!.isNotEmpty()) {
             command += `${this.atKey}${VerbUtil.formatAtSign(this.sharedBy)}`;
         } else {
             command += this.atKey!;

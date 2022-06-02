@@ -1,18 +1,30 @@
 interface Array<T> {
-    isEmpty: boolean;
-    isNotEmpty: boolean;
+    isEmpty: () => boolean;
+    isNotEmpty: () => boolean;
+    first: () => T;
 }
 
-Array.prototype.isEmpty = this.length === 0;
-Array.prototype.isNotEmpty = this.length !== 0;
+Array.prototype.isEmpty = function () {
+    return this.length === 0;
+};
+Array.prototype.isNotEmpty = function () {
+    return this.length !== 0;
+};
+Array.prototype.first = function () {
+    return this[0];
+}
 
 interface String {
-    isEmpty: boolean;
-    isNotEmpty: boolean;
+    isEmpty: () => boolean;
+    isNotEmpty: () => boolean;
 }
 
-String.prototype.isEmpty = this.length === 0;
-String.prototype.isNotEmpty =  this.length !== 0;
+String.prototype.isEmpty = function () {
+    return this.length === 0;
+};
+String.prototype.isNotEmpty = function () {
+    return this.length !== 0;
+};
 
 interface Map<K, V> {
     /**
@@ -27,3 +39,4 @@ Map.prototype.putIfAbsent = function (key, value: () => {}) {
     }
     return this.get(key);
 }
+

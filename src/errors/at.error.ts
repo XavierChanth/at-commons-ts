@@ -68,6 +68,43 @@ export class AtConnectionError extends AtError {
 }
 
 /**
+ * Thrown when trying to perform a read/write on a connection which is invalid.
+ */
+export class ConnectionInvalidError extends AtConnectionError {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
+/**
+ * Thrown when trying to perform a read / write on an outbound connection which is invalid
+ */ 
+export class OutBoundConnectionInvalidError extends AtConnectionError {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
+/**
+ * Error thrown when security certification validation on root or secondary server fails
+ */ 
+export class AtCertificateValidationError extends AtError {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
+/**
+ * Error thrown when there is any issue related to socket operations e.g read / write
+ */ 
+export class AtIOError extends AtError {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
+
+/**
  * This error occurs during keystore operations (GET/PUT/DELETE).
  */
 export class DataStoreError extends AtError {
@@ -159,6 +196,7 @@ export class AtTimeoutError extends AtError {
         super(message);
     }
 }
+
 
 /**
  * This error will occur when we are trying to run a command on a secondary without authentication.

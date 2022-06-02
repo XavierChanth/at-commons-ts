@@ -1,7 +1,7 @@
 import { VerbUtil } from "../../utils/verb.utils/verb.util";
-import { AtKey } from "../at.key";
+import { AtKey } from "..";
 import { Metadata } from "../metadata";
-import { CachedKeyBuilder } from "./cached.key";
+import { CachedKeyBuilder } from "./cached-key";
 
 /**
  * Represents a public key.
@@ -13,8 +13,8 @@ export class PublicKey extends AtKey {
         this.metadata!.isPublic = true;
     }
 
-    override toString(): string {
-        this.sharedBy = VerbUtil.formatAtSign(this.sharedBy);
+    toString(): string {
+        this.sharedBy = VerbUtil.formatAtSign(this.sharedBy!)!;
         return `public:${this.key}.${this.namespace}${this.sharedBy}`;
     }
 }

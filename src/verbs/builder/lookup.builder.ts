@@ -1,5 +1,6 @@
 import { VerbUtil } from "../../utils/verb.utils/verb.util";
 import { VerbBuilder } from "./verb.builder";
+import './../../utils/ext.util';
 
 /** 
  * Lookup verb builder generates a command to lookup `atKey` on either the client user's secondary server (without authentication)
@@ -60,6 +61,6 @@ export class LookupVerbBuilder implements VerbBuilder {
     }
 
     checkParams(): boolean {
-        return this.atKey != null && this.atKey.isNotEmpty && this.sharedBy != null && this.sharedBy.isNotEmpty;
+        return this.atKey != null && this.atKey.isNotEmpty() && this.sharedBy != null && this.sharedBy.isNotEmpty();
     }
 }

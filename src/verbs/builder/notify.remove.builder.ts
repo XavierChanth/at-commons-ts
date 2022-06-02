@@ -1,4 +1,5 @@
 import { VerbBuilder } from "./verb.builder";
+import './../../utils/ext.util';
 
 export class NotifyRemoveVerbBuilder implements VerbBuilder {
   id!: string;
@@ -9,6 +10,6 @@ export class NotifyRemoveVerbBuilder implements VerbBuilder {
 
     checkParams() {
         // Returns false if id is not set
-        return this.id.isNotEmpty;
+        return this.id.isNotEmpty();
     }
 }

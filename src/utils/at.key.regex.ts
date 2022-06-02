@@ -10,17 +10,17 @@ export class Regexes {
     // Ideally these should be mutually exclusive, 
     // and they are. Will write tests for that.
     static publicKey: RegExp =
-        RegExp(`(?<visibility>(public:){1})((@(?<sharedWith>(${this._charsInAtSign}|${this._allowedEmoji}){1,55}):))?(?<entity>(${this._charsInEntity}|${this._allowedEmoji})+)\\.(?<namespace>${this._charsInNamespace})@(?<owner>(${this._charsInAtSign}|${this._allowedEmoji}){1,55})`);
+        RegExp(`(?<visibility>(public:){1})((@(?<sharedWith>(${Regexes._charsInAtSign}|${Regexes._allowedEmoji}){1,55}):))?(?<entity>(${Regexes._charsInEntity}|${Regexes._allowedEmoji})+)\\.(?<namespace>${Regexes._charsInNamespace})@(?<owner>(${Regexes._charsInAtSign}|${Regexes._allowedEmoji}){1,55})`);
     static privateKey: RegExp =
-        RegExp(`(?<visibility>(private:){1})((@(?<sharedWith>(${this._charsInAtSign}|${this._allowedEmoji}){1,55}):))?(?<entity>(${this._charsInEntity}|${this._allowedEmoji})+)\\.(?<namespace>${this._charsInNamespace})@(?<owner>(${this._charsInAtSign}|${this._allowedEmoji}){1,55})`);
+        RegExp(`(?<visibility>(private:){1})((@(?<sharedWith>(${Regexes._charsInAtSign}|${Regexes._allowedEmoji}){1,55}):))?(?<entity>(${Regexes._charsInEntity}|${Regexes._allowedEmoji})+)\\.(?<namespace>${Regexes._charsInNamespace})@(?<owner>(${Regexes._charsInAtSign}|${Regexes._allowedEmoji}){1,55})`);
     static selfKey: RegExp =
-        RegExp(`((@(?<sharedWith>(${this._charsInAtSign}|${this._allowedEmoji}){1,55}):))?(_*(?<entity>(${this._charsInEntity}|${this._allowedEmoji})+))\\.(?<namespace>${this._charsInNamespace})@(?<owner>(${this._charsInAtSign}|${this._allowedEmoji}){1,55})`);
+        RegExp(`((@(?<sharedWith>(${Regexes._charsInAtSign}|${Regexes._allowedEmoji}){1,55}):))?(_*(?<entity>(${Regexes._charsInEntity}|${Regexes._allowedEmoji})+))\\.(?<namespace>${Regexes._charsInNamespace})@(?<owner>(${Regexes._charsInAtSign}|${Regexes._allowedEmoji}){1,55})`);
     static sharedKey: RegExp =
-        RegExp(`((@(?<sharedWith>(${this._charsInAtSign}|${this._allowedEmoji}){1,55}):))(_*(?<entity>(${this._charsInEntity}|${this._allowedEmoji})+))\\.(?<namespace>${this._charsInNamespace})@(?<owner>(${this._charsInAtSign}|${this._allowedEmoji}){1,55})`);
+        RegExp(`((@(?<sharedWith>(${Regexes._charsInAtSign}|${Regexes._allowedEmoji}){1,55}):))(_*(?<entity>(${Regexes._charsInEntity}|${Regexes._allowedEmoji})+))\\.(?<namespace>${Regexes._charsInNamespace})@(?<owner>(${Regexes._charsInAtSign}|${Regexes._allowedEmoji}){1,55})`);
     static cachedSharedKey: RegExp =
-        RegExp(`((cached:)(@(?<sharedWith>(${this._charsInAtSign}|${this._allowedEmoji}){1,55}):))(_*(?<entity>(${this._charsInEntity}|${this._allowedEmoji})+))\\.(?<namespace>${this._charsInNamespace})@(?<owner>(${this._charsInAtSign}|${this._allowedEmoji}){1,55})`);
+        RegExp(`((cached:)(@(?<sharedWith>(${Regexes._charsInAtSign}|${Regexes._allowedEmoji}){1,55}):))(_*(?<entity>(${Regexes._charsInEntity}|${Regexes._allowedEmoji})+))\\.(?<namespace>${Regexes._charsInNamespace})@(?<owner>(${Regexes._charsInAtSign}|${Regexes._allowedEmoji}){1,55})`);
     static cachedPublicKey: RegExp =
-        RegExp(`(?<visibility>(cached:public:){1})((@(?<sharedWith>(${this._charsInAtSign}|${this._allowedEmoji}){1,55}):))?(?<entity>(${this._charsInEntity}|${this._allowedEmoji})+)\\.(?<namespace>${this._charsInNamespace})@(?<owner>(${this._charsInAtSign}|${this._allowedEmoji}){1,55})`);
+        RegExp(`(?<visibility>(cached:public:){1})((@(?<sharedWith>(${Regexes._charsInAtSign}|${Regexes._allowedEmoji}){1,55}):))?(?<entity>(${Regexes._charsInEntity}|${Regexes._allowedEmoji})+)\\.(?<namespace>${Regexes._charsInNamespace})@(?<owner>(${Regexes._charsInAtSign}|${Regexes._allowedEmoji}){1,55})`);
 }
 
 export class RegexUtil {
@@ -41,8 +41,8 @@ export class RegexUtil {
             const sharedWith: string | null = matches.get(RegexGroup.sharedWith) ?? null;
             // If owner is not specified set it to a empty string
             const owner: string | null = matches.get(RegexGroup.owner) ?? null;
-            if ((owner != null && owner.isNotEmpty) &&
-                (sharedWith != null && sharedWith.isNotEmpty) &&
+            if ((owner != null && owner.isNotEmpty()) &&
+                (sharedWith != null && sharedWith.isNotEmpty()) &&
                 owner != sharedWith) {
                 return AtKeyType.sharedKey;
             }
@@ -72,13 +72,12 @@ export class RegexUtil {
         const matches = regExp.exec(input);
         const paramsMap = new Map<string, string | undefined>();
 
-        if (matches == null || matches.isEmpty) {
+        if (matches == null || matches.isEmpty()) {
             return paramsMap;
         }
         for (const key in matches.groups) {
             paramsMap.putIfAbsent(key, () => matches.groups![key]);
         }
-        console.log(matches);
         return paramsMap;
     }
 }

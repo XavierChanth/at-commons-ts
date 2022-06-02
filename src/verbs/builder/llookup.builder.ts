@@ -1,5 +1,6 @@
 import { VerbUtil } from "../../utils/verb.utils/verb.util";
 import { VerbBuilder } from "./verb.builder";
+import './../../utils/ext.util';
 
 /** Local lookup verb builder generates a command to lookup value of [atKey] stored in the secondary server.
  * 
@@ -69,7 +70,7 @@ export class LLookupVerbBuilder implements VerbBuilder {
         if (this.isPublic) {
             command += 'public:';
         }
-        if (this.sharedWith != null && this.sharedWith!.isNotEmpty) {
+        if (this.sharedWith != null && this.sharedWith!.isNotEmpty()) {
             command += `${this.sharedWith}:`;
         }
         command += this.atKey!;
@@ -77,6 +78,6 @@ export class LLookupVerbBuilder implements VerbBuilder {
     }
 
     checkParams(): boolean {
-        return this.atKey != null && this.atKey!.isNotEmpty && this.sharedBy != null && this.sharedBy!.isNotEmpty;
+        return this.atKey != null && this.atKey!.isNotEmpty() && this.sharedBy != null && this.sharedBy!.isNotEmpty();
     }
 }

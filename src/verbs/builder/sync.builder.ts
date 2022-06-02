@@ -1,4 +1,5 @@
 import { VerbBuilder } from "./verb.builder";
+import './../../utils/ext.util';
 
 export class SyncVerbBuilder implements VerbBuilder {
 
@@ -31,7 +32,7 @@ export class SyncVerbBuilder implements VerbBuilder {
         if (this.isPaginated) {
             command += `:limit:${this.limit}`;
         }
-        if (this.regex !== null && this.regex && this.regex.toString().isNotEmpty) {
+        if (this.regex !== null && this.regex && this.regex.toString().isNotEmpty()) {
             command += `:${this.regex}`;
         }
         command += '\n';

@@ -28,7 +28,7 @@ class _AtKeyValidatorImpl extends validators.AtKeyValidator {
         validations.concat(new KeyLengthValidation(key));
         validations.concat(new KeyFormatValidation(key, this._regex, this._type));
         if (context.validateOwnership) {
-            if (context.atSign == null || context.atSign!.isEmpty) {
+            if (context.atSign == null || context.atSign!.isEmpty()) {
                 throw new AtError(
                     'atSign should be set to perform ownership validation');
             }
@@ -253,12 +253,12 @@ class KeyShareValidation extends validators.Validation {
         // Rule 2: For a shared key sharedWith should be different from the current @sign
 
         if ((this.type == AtKeyType.selfKey) &&
-            this.sharedWith.isNotEmpty &&
+            this.sharedWith.isNotEmpty() &&
             this.owner != this.sharedWith) {
             return new validators.ValidationResult(
                 `For a self key owner ${this.owner} should be same as with whom it is shared with ${this.sharedWith}.`);
         }
-        if (this.type == AtKeyType.sharedKey && this.sharedWith.isEmpty) {
+        if (this.type == AtKeyType.sharedKey && this.sharedWith.isEmpty()) {
             return new validators.ValidationResult(
                 `Shared with cannot be null for a shared key ${this.sharedWith}`);
         }

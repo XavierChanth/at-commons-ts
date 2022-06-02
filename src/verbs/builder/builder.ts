@@ -1,4 +1,5 @@
 import { ConfigVerbBuilder } from './config.builder';
+import { DeleteVerbBuilder } from './delete.builder';
 import { LLookupVerbBuilder } from './llookup.builder';
 import { LookupVerbBuilder } from './lookup.builder';
 import { MonitorVerbBuilder } from './monitor.builder';
@@ -16,6 +17,7 @@ import { UpdateVerbBuilder } from './update.builder';
 
 export {
     ConfigVerbBuilder,
+    DeleteVerbBuilder,
     LLookupVerbBuilder,
     LookupVerbBuilder,
     MonitorVerbBuilder,
